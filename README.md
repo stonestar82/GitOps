@@ -2,7 +2,7 @@
 Test
 ==========
 
-[linktest] (#link-test)
+[link test] (#link-test)
 
 # link test
 
