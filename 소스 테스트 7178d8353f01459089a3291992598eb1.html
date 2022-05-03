@@ -1,827 +1,270 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>소스 테스트</title><style>
-/* cspell:disable-file */
-/* webkit printing magic: print all background colors */
-html {
-	-webkit-print-color-adjust: exact;
-}
-* {
-	box-sizing: border-box;
-	-webkit-print-color-adjust: exact;
-}
-
-html,
-body {
-	margin: 0;
-	padding: 0;
-}
-@media only screen {
-	body {
-		margin: 2em auto;
-		max-width: 900px;
-		color: rgb(55, 53, 47);
-	}
-}
-
-body {
-	line-height: 1.5;
-	white-space: pre-wrap;
-}
-
-a,
-a.visited {
-	color: inherit;
-	text-decoration: underline;
-}
-
-.pdf-relative-link-path {
-	font-size: 80%;
-	color: #444;
-}
-
-h1,
-h2,
-h3 {
-	letter-spacing: -0.01em;
-	line-height: 1.2;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-
-.page-title {
-	font-size: 2.5rem;
-	font-weight: 700;
-	margin-top: 0;
-	margin-bottom: 0.75em;
-}
-
-h1 {
-	font-size: 1.875rem;
-	margin-top: 1.875rem;
-}
-
-h2 {
-	font-size: 1.5rem;
-	margin-top: 1.5rem;
-}
-
-h3 {
-	font-size: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.source {
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	padding: 1.5em;
-	word-break: break-all;
-}
-
-.callout {
-	border-radius: 3px;
-	padding: 1rem;
-}
-
-figure {
-	margin: 1.25em 0;
-	page-break-inside: avoid;
-}
-
-figcaption {
-	opacity: 0.5;
-	font-size: 85%;
-	margin-top: 0.5em;
-}
-
-mark {
-	background-color: transparent;
-}
-
-.indented {
-	padding-left: 1.5em;
-}
-
-hr {
-	background: transparent;
-	display: block;
-	width: 100%;
-	height: 1px;
-	visibility: visible;
-	border: none;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
-}
-
-img {
-	max-width: 100%;
-}
-
-@media only print {
-	img {
-		max-height: 100vh;
-		object-fit: contain;
-	}
-}
-
-@page {
-	margin: 1in;
-}
-
-.collection-content {
-	font-size: 0.875rem;
-}
-
-.column-list {
-	display: flex;
-	justify-content: space-between;
-}
-
-.column {
-	padding: 0 1em;
-}
-
-.column:first-child {
-	padding-left: 0;
-}
-
-.column:last-child {
-	padding-right: 0;
-}
-
-.table_of_contents-item {
-	display: block;
-	font-size: 0.875rem;
-	line-height: 1.3;
-	padding: 0.125rem;
-}
-
-.table_of_contents-indent-1 {
-	margin-left: 1.5rem;
-}
-
-.table_of_contents-indent-2 {
-	margin-left: 3rem;
-}
-
-.table_of_contents-indent-3 {
-	margin-left: 4.5rem;
-}
-
-.table_of_contents-link {
-	text-decoration: none;
-	opacity: 0.7;
-	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
-}
-
-table,
-th,
-td {
-	border: 1px solid rgba(55, 53, 47, 0.09);
-	border-collapse: collapse;
-}
-
-table {
-	border-left: none;
-	border-right: none;
-}
-
-th,
-td {
-	font-weight: normal;
-	padding: 0.25em 0.5em;
-	line-height: 1.5;
-	min-height: 1.5em;
-	text-align: left;
-}
-
-th {
-	color: rgba(55, 53, 47, 0.6);
-}
-
-ol,
-ul {
-	margin: 0;
-	margin-block-start: 0.6em;
-	margin-block-end: 0.6em;
-}
-
-li > ol:first-child,
-li > ul:first-child {
-	margin-block-start: 0.6em;
-}
-
-ul > li {
-	list-style: disc;
-}
-
-ul.to-do-list {
-	text-indent: -1.7em;
-}
-
-ul.to-do-list > li {
-	list-style: none;
-}
-
-.to-do-children-checked {
-	text-decoration: line-through;
-	opacity: 0.375;
-}
-
-ul.toggle > li {
-	list-style: none;
-}
-
-ul {
-	padding-inline-start: 1.7em;
-}
-
-ul > li {
-	padding-left: 0.1em;
-}
-
-ol {
-	padding-inline-start: 1.6em;
-}
-
-ol > li {
-	padding-left: 0.2em;
-}
-
-.mono ol {
-	padding-inline-start: 2em;
-}
-
-.mono ol > li {
-	text-indent: -0.4em;
-}
-
-.toggle {
-	padding-inline-start: 0em;
-	list-style-type: none;
-}
-
-/* Indent toggle children */
-.toggle > li > details {
-	padding-left: 1.7em;
-}
-
-.toggle > li > details > summary {
-	margin-left: -1.1em;
-}
-
-.selected-value {
-	display: inline-block;
-	padding: 0 0.5em;
-	background: rgba(206, 205, 202, 0.5);
-	border-radius: 3px;
-	margin-right: 0.5em;
-	margin-top: 0.3em;
-	margin-bottom: 0.3em;
-	white-space: nowrap;
-}
-
-.collection-title {
-	display: inline-block;
-	margin-right: 1em;
-}
-
-.simple-table {
-	margin-top: 1em;
-	font-size: 0.875rem;
-	empty-cells: show;
-}
-.simple-table td {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table th {
-	height: 29px;
-	min-width: 120px;
-}
-
-.simple-table-header-color {
-	background: rgb(247, 246, 243);
-	color: black;
-}
-.simple-table-header {
-	font-weight: 500;
-}
-
-time {
-	opacity: 0.5;
-}
-
-.icon {
-	display: inline-block;
-	max-width: 1.2em;
-	max-height: 1.2em;
-	text-decoration: none;
-	vertical-align: text-bottom;
-	margin-right: 0.5em;
-}
-
-img.icon {
-	border-radius: 3px;
-}
-
-.user-icon {
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 100%;
-	margin-right: 0.5rem;
-}
-
-.user-icon-inner {
-	font-size: 0.8em;
-}
-
-.text-icon {
-	border: 1px solid #000;
-	text-align: center;
-}
-
-.page-cover-image {
-	display: block;
-	object-fit: cover;
-	width: 100%;
-	max-height: 30vh;
-}
-
-.page-header-icon {
-	font-size: 3rem;
-	margin-bottom: 1rem;
-}
-
-.page-header-icon-with-cover {
-	margin-top: -0.72em;
-	margin-left: 0.07em;
-}
-
-.page-header-icon img {
-	border-radius: 3px;
-}
-
-.link-to-page {
-	margin: 1em 0;
-	padding: 0;
-	border: none;
-	font-weight: 500;
-}
-
-p > .user {
-	opacity: 0.5;
-}
-
-td > .user,
-td > time {
-	white-space: nowrap;
-}
-
-input[type="checkbox"] {
-	transform: scale(1.5);
-	margin-right: 0.6em;
-	vertical-align: middle;
-}
-
-p {
-	margin-top: 0.5em;
-	margin-bottom: 0.5em;
-}
-
-.image {
-	border: none;
-	margin: 1.5em 0;
-	padding: 0;
-	border-radius: 0;
-	text-align: center;
-}
-
-.code,
-code {
-	background: rgba(135, 131, 120, 0.15);
-	border-radius: 3px;
-	padding: 0.2em 0.4em;
-	border-radius: 3px;
-	font-size: 85%;
-	tab-size: 2;
-}
-
-code {
-	color: #eb5757;
-}
-
-.code {
-	padding: 1.5em 1em;
-}
-
-.code-wrap {
-	white-space: pre-wrap;
-	word-break: break-all;
-}
-
-.code > code {
-	background: none;
-	padding: 0;
-	font-size: 100%;
-	color: inherit;
-}
-
-blockquote {
-	font-size: 1.25em;
-	margin: 1em 0;
-	padding-left: 1em;
-	border-left: 3px solid rgb(55, 53, 47);
-}
-
-.bookmark {
-	text-decoration: none;
-	max-height: 8em;
-	padding: 0;
-	display: flex;
-	width: 100%;
-	align-items: stretch;
-}
-
-.bookmark-title {
-	font-size: 0.85em;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 1.75em;
-	white-space: nowrap;
-}
-
-.bookmark-text {
-	display: flex;
-	flex-direction: column;
-}
-
-.bookmark-info {
-	flex: 4 1 180px;
-	padding: 12px 14px 14px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.bookmark-image {
-	width: 33%;
-	flex: 1 1 180px;
-	display: block;
-	position: relative;
-	object-fit: cover;
-	border-radius: 1px;
-}
-
-.bookmark-description {
-	color: rgba(55, 53, 47, 0.6);
-	font-size: 0.75em;
-	overflow: hidden;
-	max-height: 4.5em;
-	word-break: break-word;
-}
-
-.bookmark-href {
-	font-size: 0.75em;
-	margin-top: 0.25em;
-}
-
-.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
-.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
-.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
-.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
-.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
-.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
-.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
-.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
-.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
-.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
-.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
-.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
-.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
-.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
-.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
-.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
-.highlight-default {
-	color: rgba(55, 53, 47, 1);
-}
-.highlight-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.highlight-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.highlight-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.highlight-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.highlight-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.highlight-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.highlight-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.highlight-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.highlight-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.highlight-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.highlight-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.highlight-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.highlight-yellow_background {
-	background: rgba(251, 243, 219, 1);
-}
-.highlight-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.highlight-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.highlight-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.highlight-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.highlight-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.block-color-default {
-	color: inherit;
-	fill: inherit;
-}
-.block-color-gray {
-	color: rgba(120, 119, 116, 1);
-	fill: rgba(120, 119, 116, 1);
-}
-.block-color-brown {
-	color: rgba(159, 107, 83, 1);
-	fill: rgba(159, 107, 83, 1);
-}
-.block-color-orange {
-	color: rgba(217, 115, 13, 1);
-	fill: rgba(217, 115, 13, 1);
-}
-.block-color-yellow {
-	color: rgba(203, 145, 47, 1);
-	fill: rgba(203, 145, 47, 1);
-}
-.block-color-teal {
-	color: rgba(68, 131, 97, 1);
-	fill: rgba(68, 131, 97, 1);
-}
-.block-color-blue {
-	color: rgba(51, 126, 169, 1);
-	fill: rgba(51, 126, 169, 1);
-}
-.block-color-purple {
-	color: rgba(144, 101, 176, 1);
-	fill: rgba(144, 101, 176, 1);
-}
-.block-color-pink {
-	color: rgba(193, 76, 138, 1);
-	fill: rgba(193, 76, 138, 1);
-}
-.block-color-red {
-	color: rgba(212, 76, 71, 1);
-	fill: rgba(212, 76, 71, 1);
-}
-.block-color-gray_background {
-	background: rgba(241, 241, 239, 1);
-}
-.block-color-brown_background {
-	background: rgba(244, 238, 238, 1);
-}
-.block-color-orange_background {
-	background: rgba(251, 236, 221, 1);
-}
-.block-color-yellow_background {
-	background: rgba(251, 243, 219, 1);
-}
-.block-color-teal_background {
-	background: rgba(237, 243, 236, 1);
-}
-.block-color-blue_background {
-	background: rgba(231, 243, 248, 1);
-}
-.block-color-purple_background {
-	background: rgba(244, 240, 247, 0.8);
-}
-.block-color-pink_background {
-	background: rgba(249, 238, 243, 0.8);
-}
-.block-color-red_background {
-	background: rgba(253, 235, 236, 1);
-}
-.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
-.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
-.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
-.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
-.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
-.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
-.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
-.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
-.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
-.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
-
-.checkbox {
-	display: inline-flex;
-	vertical-align: text-bottom;
-	width: 16;
-	height: 16;
-	background-size: 16px;
-	margin-left: 2px;
-	margin-right: 5px;
-}
-
-.checkbox-on {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-
-.checkbox-off {
-	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
-}
-	
-</style></head><body><article id="7178d835-3f01-4590-89a3-291992598eb1" class="page sans"><header><h1 class="page-title">소스 테스트</h1></header><div class="page-body"><p id="04fa769d-c52a-4643-be88-996f29b5dec1" class="">
-</p><ol type="1" id="a47b5215-f4b7-43fe-ac92-27ba3aa56dcc" class="numbered-list" start="1"><li>yaml</li></ol><pre id="8536d488-dc2b-4b78-80d1-aaeb3aa7836d" class="code"><code># vim inventories/eapi-example/inventory.yml
----
-AVD:
-  children:
-    AVD_FABRIC:
-      children:
-        AVD_SPINES:
-          hosts:
-            AVD-SPINE1:
-              ansible_host: 10.73.254.1
-[... output truncated ...]
-        AVD_L3LEAFS:
-          children:
-            AVD_LEAF1:
-              hosts:
-                AVD-LEAF1A:
-                  ansible_host: 10.73.254.11
-                AVD-LEAF1B:
-                  ansible_host: 10.73.254.12
-            AVD_LEAF3:
-              hosts:
-                AVD-LEAF3A:
-                  ansible_host: 10.73.254.17
-[... output truncated ...]
-        AVD_L2LEAFS:
-          children:
-            AVD_L2LEAF1:
-              hosts:
-                AVD-AGG01:
-                  ansible_host: 10.73.254.21
-[... output truncated ...]
-    AVD_TENANTS_NETWORKS:
-      children:
-        AVD_L3LEAFS:
-        AVD_L2LEAFS:
-    AVD_SERVERS:
-      children:
-        AVD_L3LEAFS:
-        AVD_L2LEAFS:</code></pre><p id="3c2e9cc4-a1bb-45ac-a584-28cd79593abc" class="">
-</p><ol type="1" id="8603a225-ef0d-43ab-b25f-0df292c10cb8" class="numbered-list" start="2"><li>bash</li></ol><pre id="e8b3d186-56ed-4e22-b31b-da9fc3920bf6" class="code"><code>$ vim expose-eos.sh
-#!/bin/bash
-
-echo &quot;Jumphost Remote access configuration&quot;
-
-_EAPI_PORT=443
-_SSH_PORT=22
-_SRC_IF=&#x27;ens3&#x27;
-_DST_IF=&#x27;ens4&#x27;
-
-echo &#x27;* Activate kernel routing&#x27;
-sysctl -w net.ipv4.ip_forward=1
-
-echo &#x27;* Flush Current IPTables settings&#x27;
-iptables --flush
-iptables --delete-chain
-iptables --table nat --flush
-iptables --table nat --delete-chain
-
-echo &#x27;* Activate default forwarding&#x27;
-
-iptables -P FORWARD ACCEPT
-iptables -P INPUT ACCEPT
-iptables -P OUTPUT ACCEPT
-
-echo &#x27;* Activate masquerading&#x27;
-
-iptables -t nat -A POSTROUTING -o ${_SRC_IF} -j MASQUERADE
-iptables -t nat -A POSTROUTING -o ${_DST_IF} -j MASQUERADE
-
-echo &#x27;* Activate eAPI forwarding with base port 800x&#x27;
-
-# Do this configuration for any EOS device.
-echo &#x27;* Activate eAPI forwarding with base port 800x&#x27;
-iptables -t nat -A PREROUTING -p tcp -i ${_SRC_IF} --dport 8001 -j DNAT --to-destination 10.73.1.11:${_EAPI_PORT}
-echo &#x27;* Activate SSH forwarding with base port 810x&#x27;
-iptables -t nat -A PREROUTING -p tcp -i ${_SRC_IF} --dport 8101 -j DNAT --to-destination 10.73.1.11:${_SSH_PORT}
-
-# Configure at the end of the file
-iptables -A FORWARD -p tcp -d 10.73.1.0/24 --dport ${_EAPI_PORT} -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-iptables -A FORWARD -p tcp -d 10.73.1.0/24 --dport ${_SSH_PORT} -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT</code></pre><p id="10778862-f0fd-42a8-81f0-4872a8175bd2" class="">
-</p><ol type="1" id="edd03a2c-0985-47f4-9bb4-e2867581fa3f" class="numbered-list" start="3"><li>python</li></ol><pre id="595a250a-aa59-4dd5-ada3-680ed61fd21d" class="code"><code>import socket
-
-server = socket.socket()
-print(&#x27;[소켓 생성완료]&#x27;)
-s_name = socket.gethostname()
-
-print(&#x27;서버 컴퓨터이름:&#x27;, s_name)
-server.bind((s_name, 999))
-
-server.listen(3)
-print(&#x27;서버 리스닝...&#x27;)
-
-while True:
-    client, address = server.accept()
-    name = client.recv(1024).decode()
-    print(&#x27;클라이언트와 연결되었습니다,&#x27;, address, name)
-
-    client.send(bytes(&#x27;서버에 연결되었습니다&#x27;, &#x27;utf-8&#x27;))
-    client.close()</code></pre><ol type="1" id="978177c3-7d56-4d62-b795-1bbe208db5e6" class="numbered-list" start="4"><li>ruby</li></ol><pre id="bf42cedc-38f5-4866-b64e-f0a71d93b30a" class="code"><code># -*- mode: ruby -*-
-# vi: set ft=ruby :
-
-Vagrant.configure(&quot;2&quot;) do |config|
-
-  #============#
-  # VyOS Nodes #
-  #============#
-  
-  #Ansible-VyOS01
-  config.vm.define &quot;ansible-vyos01&quot; do |vy|
-	 vy.vm.box = &quot;sysnet4admin/VyOS&quot;
-	 vy.vm.provider &quot;virtualbox&quot; do |vb|
-	   vb.name = &quot;Ansible-VyOS01&quot;
-	 end
-	 vy.vm.host_name = &quot;ansible-vyos01&quot;
-	 vy.vm.network &quot;public_network&quot;, ip: &quot;192.168.29.51&quot;
-	 vy.vm.network &quot;forwarded_port&quot;, guest: 22, host: 60051, auto_correct: true, id: &quot;ssh&quot;
-	 vy.vm.network &quot;private_network&quot;, virtualbox__intnet: &quot;eth2&quot;, auto_config: false
-	 vy.vm.network &quot;private_network&quot;, virtualbox__intnet: &quot;eth3&quot;, auto_config: false
-     vy.vm.synced_folder &quot;../data&quot;, &quot;/vagrant&quot;, disabled: true 
-	 vy.vbguest.auto_update = false
-  end
-
-  #Ansible-VyOS02
-  config.vm.define &quot;ansible-vyos02&quot; do |vy|
-	 vy.vm.box = &quot;sysnet4admin/VyOS&quot;
-	 vy.vm.provider &quot;virtualbox&quot; do |vb|
-	   vb.name = &quot;Ansible-VyOS02&quot;
-	 end
-	 vy.vm.host_name = &quot;ansible-vyos02&quot;
-	 vy.vm.network &quot;public_network&quot;, ip: &quot;192.168.29.52&quot;
-	 vy.vm.network &quot;forwarded_port&quot;, guest: 22, host: 60052, auto_correct: true, id: &quot;ssh&quot;
-	 vy.vm.network &quot;private_network&quot;, virtualbox__intnet: &quot;eth2&quot;, auto_config: false
-	 vy.vm.network &quot;private_network&quot;, virtualbox__intnet: &quot;eth3&quot;, auto_config: false
-     vy.vm.synced_folder &quot;../data&quot;, &quot;/vagrant&quot;, disabled: true 
-	 vy.vbguest.auto_update = false
-  end
-  
-  #================#
-  # Ansible Server #
-  #================#
-  
-  config.vm.define &quot;ansible-server&quot; do |cfg|
-    cfg.vm.box = &quot;generic/rocky8&quot;
- 	cfg.vm.provider &quot;virtualbox&quot; do |vb|
-	  vb.name = &quot;Ansible-Server&quot;
-	end
-	cfg.vm.host_name = &quot;ansible-server&quot;
-	cfg.vm.network &quot;public_network&quot;, ip: &quot;192.168.29.10&quot;
-	cfg.vm.network &quot;forwarded_port&quot;, guest: 22, host: 60010, auto_correct: true, id: &quot;ssh&quot;
-	cfg.vm.synced_folder &quot;../data&quot;, &quot;/vagrant&quot;, disabled: true	
-	cfg.vbguest.auto_update = false
-	cfg.vm.provision &quot;shell&quot;, inline: &quot;yum install ansible -y&quot;
-	cfg.vm.provision &quot;file&quot;, source: &quot;ansible_env_ready.yml&quot;, 
-	  destination: &quot;ansible_env_ready.yml&quot;
-	cfg.vm.provision &quot;shell&quot;, inline: &quot;ansible-playbook ansible_env_ready.yml&quot;
-  end
-end</code></pre><p id="b097090d-eca5-4076-9669-0766dad74803" class="">
-</p></div></article></body></html>
+
+# Demo script
+
+- [Demo script](#demo-script)
+  - [Power up devices](#power-up-devices)
+    - [Check there is no container](#check-there-is-no-container)
+    - [Check Configlets are not present](#check-configlets-are-not-present)
+  - [Upload custom configlets to Cloudvision.](#upload-custom-configlets-to-cloudvision)
+  - [Run Ansible playbook to rollout EVPN Fabric](#run-ansible-playbook-to-rollout-evpn-fabric)
+    - [Playbook overview](#playbook-overview)
+    - [Run Playbook](#run-playbook)
+      - [Generate EOS Configuration](#generate-eos-configuration)
+      - [Provision CloudVision Server](#provision-cloudvision-server)
+      - [Execute Pending tasks using a change control](#execute-pending-tasks-using-a-change-control)
+  - [Analyze result](#analyze-result)
+    - [Topology Update](#topology-update)
+    - [Configlet list](#configlet-list)
+    - [Check device status](#check-device-status)
+    - [BGP Status](#bgp-status)
+    - [VXLAN address table](#vxlan-address-table)
+    - [Check device connectivity](#check-device-connectivity)
+  - [Revert topology](#revert-topology)
+
+## Power up devices
+
+Power up your devices what ever the solution is. You will see them in the __`undefined`__ container
+
+![ZTP Registration](data/cloudvision-ztpd-devices.png)
+
+### Check there is no container
+
+![Streaming Inventory](data/streaming-inventory.png)
+
+### Check Configlets are not present
+
+![Configlets](data/cloudvision-initial-configlet.png)
+
+> CloudVision might have some configlets, but none with AVD related content.
+
+## Upload custom configlets to Cloudvision.
+
+These configlets are managed outside of AVD project and can provide additional elements not generated by Arista Validated Design. In this example, we upload a configlet with a list of useful aliases.
+
+```shell
+$ ansible-playbook playbooks/dc1-upload-configlets.yml
+...
+```
+
+![Uploaded Configlets](data/cloudvision-uploaded-configlets.png)
+
+## Run Ansible playbook to rollout EVPN Fabric
+
+A set of tags are available, but it is recommended to execute playbook in a row:
+
+### Playbook overview
+
+Playbook: [`playbooks/dc1-fabric-deploy-cvp.yml`](playbooks/dc1-fabric-deploy-cvp.yml)
+
+Playbook manage following actions:
+
+- Generate Variables for CVP structure:
+  - List of configlets
+  - Containers topology
+  - List of devices.
+- Collect CloudVision Facts
+- Deploy Configlets to CloudVision
+- Build Containers Topology
+- Configure devices with correct configlet and container.
+- Execute created tasks (wait 5 minutes while devices reboot)
+
+This playbook supports 2 tags to run demo step by step:
+
+- __build__: Generate configuration.
+- __provision__: Push content to CloudVision.
+
+### Run Playbook
+
+#### Generate EOS Configuration
+
+Use tag `build` to only generate
+
+- [EOS structured configuration(YAML)](inventory/intended/structured_configs/)
+- [EOS configuration](inventory/intended/configs/)
+- [EOS Documentation](inventory/documentation/)
+- [CloudVision parameters](inventory/intended/structured_configs/cvp/cv_server.yml)
+
+```shell
+# Deploy EVPN/VXLAN Fabric
+$ ansible-playbook playbooks/dc1-fabric-deploy-cvp.yml --tags build
+
+TASK [eos_l3ls_evpn : Include device structured configuration, that was previously generated.]
+ok: [DC1-SPINE1 -> localhost]
+ok: [DC1-SPINE2 -> localhost]
+ok: [DC1-LEAF1A -> localhost]
+ok: [DC1-LEAF1B -> localhost]
+ok: [DC1-LEAF2A -> localhost]
+ok: [DC1-LEAF2B -> localhost]
+
+TASK [eos_l3ls_evpn : Generate EVPN fabric documentation in Markdown Format.]
+changed: [DC1-SPINE1 -> localhost]
+
+TASK [eos_l3ls_evpn : Generate Leaf and Spine Point-To-Point Links summary in csv format.]
+changed: [DC1-SPINE1 -> localhost]
+
+TASK [eos_l3ls_evpn : Generate Fabric Topology in csv format.]
+changed: [DC1-SPINE1 -> localhost]
+
+TASK [eos_cli_config_gen : include device intended structure configuration variables]
+ok: [DC1-SPINE1 -> localhost]
+ok: [DC1-SPINE2 -> localhost]
+ok: [DC1-LEAF1A -> localhost]
+ok: [DC1-LEAF1B -> localhost]
+ok: [DC1-LEAF2A -> localhost]
+ok: [DC1-LEAF2B -> localhost]
+
+TASK [eos_cli_config_gen : Generate eos intended configuration]
+ok: [DC1-LEAF2A -> localhost]
+ok: [DC1-SPINE1 -> localhost]
+ok: [DC1-LEAF1A -> localhost]
+ok: [DC1-LEAF2B -> localhost]
+ok: [DC1-SPINE2 -> localhost]
+ok: [DC1-LEAF1B -> localhost]
+
+TASK [eos_cli_config_gen : Generate device documentation]
+changed: [DC1-SPINE1 -> localhost]
+changed: [DC1-LEAF1A -> localhost]
+changed: [DC1-LEAF2A -> localhost]
+changed: [DC1-SPINE2 -> localhost]
+changed: [DC1-LEAF1B -> localhost]
+changed: [DC1-LEAF2B -> localhost]
+
+PLAY [Configuration deployment with CVP]
+
+TASK [eos_config_deploy_cvp : generate intented variables]
+ok: [cv_server]
+
+TASK [eos_config_deploy_cvp : Build DEVICES and CONTAINER definition for cv_server]
+changed: [cv_server -> localhost]
+
+TASK [eos_config_deploy_cvp : Load CVP device information for cv_server]
+ok: [cv_server]
+
+PLAY RECAP
+DC1-LEAF1A                 : ok=5    changed=1    unreachable=0    failed=0 ...
+DC1-LEAF1B                 : ok=5    changed=1    unreachable=0    failed=0 ...
+DC1-LEAF2A                 : ok=5    changed=1    unreachable=0    failed=0 ...
+DC1-LEAF2B                 : ok=5    changed=1    unreachable=0    failed=0 ...
+DC1-SPINE1                 : ok=8    changed=4    unreachable=0    failed=0 ...
+DC1-SPINE2                 : ok=5    changed=1    unreachable=0    failed=0 ...
+cv_server                  : ok=3    changed=1    unreachable=0    failed=0 ...
+```
+
+All outputs are part of following folders:
+
+- Intended YAML configuration: [`inventory/intended/structured_configs`](inventory/intended/structured_configs)
+- Intended EOS configuration files: [`inventory/intended/configs`](inventory/intended/configs)
+- Documentation: [`inventory/documentation`](inventory/documentation)
+
+#### Provision CloudVision Server
+
+Use tag `provision` to deploy configuration to CloudVision and prepare devices to be updated:
+
+- Create configlets on CloudVision servers
+- Create containers on CloudVision using inventory structure
+- Move devices to containers
+- Attach configlets to devices.
+
+This tag does not execute any pending tasks. It is a manual action that can be done with a Change Control.
+If you want to automatically deploy, just use `execute_tasks: True` in `eos_config_deploy_cvp` role.
+
+```shell
+# Deploy EVPN/VXLAN Fabric
+$ ansible-playbook playbooks/dc1-fabric-deploy-cvp.yml --tags provision
+```
+
+#### Execute Pending tasks using a change control
+
+Go to _Provisioning > Change Control_ to create a new change control
+
+![Change Control Example](data/figure-2-cloudvision-change-control.png)
+
+This change control is an example and you are free to build structure you want. In this scenario, all tasks can be run in parallel as we just rollout an EVPN/VXLAN fabric.
+
+## Analyze result
+
+Once devices rebooted, you can review fabric status on devices themselfs or on on CloudVision as well.
+
+### Topology Update
+
+Topology has been updated accordingly
+
+![Lab Topology](data/cloudvision-device-topology.png)
+
+### Configlet list
+
+A set of new configlets have been configured on CloudVision and attached to devices
+
+![Lab Topology](data/cloudvision-deployed-configlet.png)
+
+### Check device status
+
+To validate deployment, connect to devices and issue some commands:
+
+### BGP Status
+
+```shell
+DC1-LEAF1B#show bgp evpn summary
+BGP summary information for VRF default
+Router identifier 192.168.255.4, local AS number 65101
+Neighbor         V  AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc
+  192.168.255.1    4  65001             56        66    0    0 00:00:36 Estab   86     86
+  192.168.255.2    4  65001             55        39    0    0 00:00:44 Estab   86     86
+```
+
+### VXLAN address table
+
+```shell
+DC1-LEAF1B#show vxlan  address-table
+          Vxlan Mac Address Table
+----------------------------------------------------------------------
+
+VLAN  Mac Address     Type     Prt  VTEP             Moves   Last Move
+----  -----------     ----     ---  ----             -----   ---------
+1191  0e1d.c07f.d96c  EVPN     Vx1  192.168.254.5    1       0:00:04 ago
+1192  0e1d.c07f.d96c  EVPN     Vx1  192.168.254.5    1       0:00:02 ago
+1193  0e1d.c07f.d96c  EVPN     Vx1  192.168.254.5    1       0:00:04 ago
+1194  0e1d.c07f.d96c  EVPN     Vx1  192.168.254.5    1       0:00:02 ago
+1195  0e1d.c07f.d96c  EVPN     Vx1  192.168.254.5    1       0:00:02 ago
+1196  0e1d.c07f.d96c  EVPN     Vx1  192.168.254.5    1       0:00:02 ago
+1197  0e1d.c07f.d96c  EVPN     Vx1  192.168.254.5    1       0:00:04 ago
+1198  0e1d.c07f.d96c  EVPN     Vx1  192.168.254.5    1       0:00:04 ago
+1199  0e1d.c07f.d96c  EVPN     Vx1  192.168.254.5    1       0:00:02 ago
+Total Remote Mac Addresses for this criterion: 9
+```
+
+### Check device connectivity
+
+Connect on server 01 and issue a ping to server 02.
+
+```shell
+root@Server01:~# ping 10.1.10.12 -c 5
+PING 10.1.10.12 (10.1.10.12) 56(84) bytes of data.
+64 bytes from 10.1.10.12: icmp_seq=1 ttl=64 time=0.033 ms
+64 bytes from 10.1.10.12: icmp_seq=2 ttl=64 time=0.026 ms
+64 bytes from 10.1.10.12: icmp_seq=3 ttl=64 time=0.021 ms
+64 bytes from 10.1.10.12: icmp_seq=4 ttl=64 time=0.026 ms
+64 bytes from 10.1.10.12: icmp_seq=5 ttl=64 time=0.034 ms
+
+--- 10.1.10.12 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3998ms
+rtt min/avg/max/mdev = 0.021/0.028/0.034/0.004 ms
+```
+
+## Revert topology
+
+Once demo is over, you can revert to previous stage:
+
+- Reset devices to ZTP mode (Only devices part of the demo)
+- Remove configlet deployed previously
+- Remove dedicated container topology
+- Reboot devices
+
+Playbook: [`dc1-fabric-reset-cvp.yml`](dc1-fabric-reset-cvp.yml)
+
+```shell
+# Reset EVPN/VXLAN Fabric tp ZTP
+$ ansible-playbook playbooks/dc1-fabric-reset-cvp.yml
+```
+
+> Revert will reset all devices to Factory default and ZTP mode !
