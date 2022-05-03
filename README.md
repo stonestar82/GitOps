@@ -4,6 +4,7 @@
 - [Demo script](#demo-script)
   - [Power up devices](#power-up-devices)
     - [Check there is no container](#check-there-is-no-container)
+    - [Link test](#link-test)
     - [Check Configlets are not present](#check-configlets-are-not-present)
   - [Upload custom configlets to Cloudvision.](#upload-custom-configlets-to-cloudvision)
   - [Run Ansible playbook to rollout EVPN Fabric](#run-ansible-playbook-to-rollout-evpn-fabric)
@@ -20,6 +21,9 @@
     - [VXLAN address table](#vxlan-address-table)
     - [Check device connectivity](#check-device-connectivity)
   - [Revert topology](#revert-topology)
+
+
+## Link test
 
 ## Power up devices
 
